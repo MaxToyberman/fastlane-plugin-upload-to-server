@@ -13,10 +13,11 @@ module Fastlane
         params[:apk] = config[:apk]
         params[:ipa] = config[:ipa]
         params[:multipartPayload] = config[:multipartPayload]
+        params[:headers] = config[:headers]
 
         apk_file = params[:apk]
         ipa_file = params[:ipa]
-        
+
         upload_apk(params, apk_file) if apk_file.to_s.length > 0
         upload_ipa(params, ipa_file) if ipa_file.to_s.length > 0
    
@@ -34,11 +35,6 @@ module Fastlane
 
       end
 
-      def self.isAlive(endPoint)
-        response = RestClient.get endPoint
-        return response.code
-      end
-
       def self.upload_ipa(params, ipa_file) 
         multipartPayload = params[:multipartPayload]
         
@@ -54,7 +50,8 @@ module Fastlane
         request = RestClient::Request.new(
           :method => :post,
           :url => params[:endPoint],
-          :payload => multipartPayload)
+          :payload => multipartPayload,
+          :headers => params[:headers])
 
         response = request.execute
         UI.message(response)
@@ -95,6 +92,11 @@ module Fastlane
                                   description: "payload for the multipart request ",
                                   optional: true,
                                   type: Hash),
+          FastlaneCore::ConfigItem.new(key: :headers,
+                                    env_name: "",
+                                    description: "headers of the request ",
+                                    optional: true,
+                                    type: Hash),
           FastlaneCore::ConfigItem.new(key: :endPoint,
                                   env_name: "",
                                   description: "file upload request url",
