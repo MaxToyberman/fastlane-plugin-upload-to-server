@@ -1,12 +1,12 @@
 require 'fastlane/action'
 require 'rest-client'
-require_relative '../helper/internal_server_upload_helper'
+require_relative '../helper/upload_to_server_helper'
 
 module Fastlane
   module Actions
-    class InternalServerUploadAction < Action
+    class UploadToServerAction < Action
       def self.run(config)
-        UI.message("The internal_server_upload plugin is working!")
+        UI.message("The upload_to_server plugin is working!")
         params = {}
         # extract parms from config received from fastlane
         params[:endPoint] = config[:endPoint]

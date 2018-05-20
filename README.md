@@ -1,16 +1,16 @@
-# internal_server_upload plugin
+# upload_to_server plugin
 
-[![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-internal_server_upload)
+[![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-upload_to_server)
 
 ## Getting Started
 
-This project is a [_fastlane_](https://github.com/fastlane/fastlane) plugin. To get started with `fastlane-plugin-internal_server_upload`, add it to your project by running:
+This project is a [_fastlane_](https://github.com/fastlane/fastlane) plugin. To get started with `fastlane-plugin-upload_to_server`, add it to your project by running:
 
 ```bash
-fastlane add_plugin internal_server_upload
+fastlane add_plugin upload_to_server
 ```
 
-## About internal_server_upload
+## About upload_to_server
 
 Upload IPA and APK to your own server
 

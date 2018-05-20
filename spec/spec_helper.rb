@@ -10,6 +10,6 @@ module SpecHelper
 end
 
 require 'fastlane' # to import the Action super class
-require 'fastlane/plugin/internal_server_upload' # import the actual plugin
+require 'fastlane/plugin/upload_to_server' # import the actual plugin
 
 Fastlane.load_actions # load other actions (in case your plugin calls other actions or shared values)
