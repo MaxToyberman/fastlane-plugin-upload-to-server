@@ -12,16 +12,35 @@ fastlane add_plugin upload_to_server
 
 ## About upload_to_server
 
-Upload IPA and APK to your own server
+Upload IPA and APK to your own server,and other multipart data parameters.
 
 **Note to author:** Add a more detailed description about this plugin here. If your plugin contains multiple actions, make sure to mention them here.
 
 ## Example
 
-Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
+Add the upload_to_server action after the gym step or the gradle step but not both:
 
-**Note to author:** Please set up a sample project to make it easy for users to explore what your plugin does. Provide everything that is necessary to try out the plugin in this project (including a sample Xcode/Android project if necessary)
 
+```
+upload_to_server
+```
+
+```
+
+upload_to_server(
+    endPoint: 'https://yourdomain.com/api/UploadFiles',
+    multipartPayload: {
+        // here goes any multipart data  you want to add 
+        :param1 => 'param1data',
+        :param2 => 'param2data',
+    },
+    headers: {
+        //required headers
+    },
+    ipa: 'path to your apk',  #(Optional - will be taken from the gym step)
+    apk: 'path to your ipa', #(Optional - will be taken from the gradle step) 
+)
+```
 ## Run tests for this plugin
 
 To run both the tests, and code style validation, run
