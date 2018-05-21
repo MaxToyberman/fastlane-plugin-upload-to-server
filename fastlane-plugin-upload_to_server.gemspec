@@ -2,16 +2,16 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'fastlane/plugin/internal_server_upload/version'
+require 'fastlane/plugin/upload_to_server/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'fastlane-plugin-internal_server_upload'
-  spec.version       = Fastlane::InternalServerUpload::VERSION
+  spec.name          = 'fastlane-plugin-upload_to_server'
+  spec.version       = Fastlane::UploadToServer::VERSION
   spec.author        = 'Maxim Toyberman'
   spec.email         = 'maxtoyberman@gmail.com'
 
   spec.summary       = 'Upload IPA and APK to your own server'
-  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-internal_server_upload"
+  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-upload_to_server"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
