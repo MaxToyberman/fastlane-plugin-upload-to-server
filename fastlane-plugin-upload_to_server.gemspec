@@ -22,8 +22,8 @@ Gem::Specification.new do |spec|
   # since this would cause a circular dependency
 
   # spec.add_dependency 'your-dependency', '~> 1.0.0'
-  spec.add_dependency 'rest-client', '~> 2.1.0.rc1'
-  spec.add_dependency 'apktools', '~> 0.7'
+  spec.add_dependency('rest-client', '~> 2.1.0.rc1')
+  spec.add_dependency('apktools', '~> 0.7')
   spec.add_development_dependency('pry')
   spec.add_development_dependency('bundler')
   spec.add_development_dependency('rspec')
