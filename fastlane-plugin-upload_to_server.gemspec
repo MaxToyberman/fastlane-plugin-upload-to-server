@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = 'maxtoyberman@gmail.com'
 
   spec.summary       = 'Upload IPA and APK to your own server'
-  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-upload_to_server"
+  spec.homepage      = "https://github.com/MaxToyberman/fastlane-plugin-upload-to-server"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
