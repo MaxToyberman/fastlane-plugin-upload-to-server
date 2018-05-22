@@ -6,7 +6,6 @@ module Fastlane
   module Actions
     class UploadToServerAction < Action
       def self.run(config)
-        UI.message("The upload_to_server plugin is working!")
         params = {}
         # extract parms from config received from fastlane
         params[:endPoint] = config[:endPoint]
@@ -17,48 +16,45 @@ module Fastlane
 
         apk_file = params[:apk]
         ipa_file = params[:ipa]
+        end_point = params[:endPoint]
+
+        UI.user_error!("No endPoint given, pass using endPoint: 'endpoint'") if end_point.to_s.length == 0 && end_point.to_s.length == 0
+        UI.user_error!("No IPA or APK file path given, pass using `ipa: 'ipa path'` or `apk: 'apk path'`") if ipa_file.to_s.length == 0 && apk_file.to_s.length == 0
+        UI.user_error!("Please only give IPA path or APK path (not both)") if ipa_file.to_s.length > 0 && apk_file.to_s.length > 0
 
         upload_apk(params, apk_file) if apk_file.to_s.length > 0
         upload_ipa(params, ipa_file) if ipa_file.to_s.length > 0
-   
-        UI.user_error!("No IPA or APK file given, pass using `ipa: 'ipa path'` or `apk: 'apk path'`") if ipa_file.to_s.length == 0 && apk_file.to_s.length == 0
-        UI.user_error!("Please only give IPA path or APK path (not both)") if ipa_file.to_s.length > 0 && apk_file.to_s.length > 0
-
       end
 
       def self.upload_apk(params, apk_file)
+        multipart_payload = params[:multipartPayload]
 
-        multipartPayload = params[:multipartPayload]
-        
-        multipartPayload[:multipart] = true
-        multipartPayload[:file] = File.new(params[:apk], 'rb')
-        
-        uploadFile(params, multipartPayload)
+        multipart_payload[:multipart] = true
+        multipart_payload[:file] = File.new(params[:apk], 'rb')
 
+        upload_file(params, multipart_payload)
       end
 
-      def self.upload_ipa(params, ipa_file) 
-        multipartPayload = params[:multipartPayload]
-        
-        multipartPayload[:multipart] = true
-        multipartPayload[:file] = File.new(params[:ipa], 'rb')
+      def self.upload_ipa(params, ipa_file)
+        multipart_payload = params[:multipartPayload]
 
-        uploadFile(params, multipartPayload)
+        multipart_payload[:multipart] = true
+        multipart_payload[:file] = File.new(params[:ipa], 'rb')
+
+        upload_file(params, multipart_payload)
       end
 
-      def self.uploadFile(params, multipartPayload)
-
+      def self.upload_file(params, multipart_payload)
         request = RestClient::Request.new(
-          :method => :post,
-          :url => params[:endPoint],
-          :payload => multipartPayload,
-          :headers => params[:headers])
+          method: :post,
+          url: params[:endPoint],
+          payload: multipart_payload,
+          headers: params[:headers]
+        )
 
         response = request.execute
         UI.message(response)
-        UI.success "Successfully finished uploading the fille" if response.code == 200 || response.code == 201 
-          
-
+        UI.success("Successfully finished uploading the fille") if response.code == 200 || response.code == 201
       end
 
       def self.description
@@ -104,8 +100,9 @@ module Fastlane
                                   env_name: "",
                                   description: "file upload request url",
                                   optional: false,
+                                  default_value: "",
                                   type: String)
-                                  
+
         ]
       end
 
