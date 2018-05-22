@@ -58,7 +58,7 @@ example of uploading an apk to a private server:
     upload_to_server(
       endPoint: 'https://yourdomain.com/api/UploadFiles',
       multipartPayload: {
-        :appName => 'AIMobile',
+        :appName => 'appName',
         :androidVersionNumber => versionName,
         :androidApk  => 'app-release.apk',
       }
