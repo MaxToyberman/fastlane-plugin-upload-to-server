@@ -40,6 +40,32 @@ upload_to_server(
     ipa: 'path to your apk',  #(Optional - will be taken from the gym step)
     apk: 'path to your ipa', #(Optional - will be taken from the gradle step) 
 )
+
+example of uploading an apk to a private server:
+
+  desc "Generate apk file"
+  lane :createApk do 
+    gradle(
+      task: "assemble",
+      build_type: "Release"
+    )
+  end
+
+  desc "Submit a new version to my server"
+  lane :uploadToServer do |options|
+    createApk
+    versionName = get_version_name
+    upload_to_server(
+      endPoint: 'https://yourdomain.com/api/UploadFiles',
+      multipartPayload: {
+        :appName => 'AIMobile',
+        :androidVersionNumber => versionName,
+        :androidApk  => 'app-release.apk',
+      }
+    )
+
+  end
+
 ```
 ## Run tests for this plugin
 
