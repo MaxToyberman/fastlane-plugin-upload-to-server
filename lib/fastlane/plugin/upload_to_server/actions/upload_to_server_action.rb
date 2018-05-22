@@ -65,6 +65,34 @@ module Fastlane
         ["Maxim Toyberman"]
       end
 
+      def self.example_code
+        [
+          '
+          upload_to_server(
+            endPoint: 'https://yourdomain.com/api/UploadFiles',
+            multipartPayload: {
+              :appName => 'appName',
+              :androidVersionNumber => 'versionName',
+              :androidApk  => 'app-release.apk',
+            }
+          )
+          ',
+          '
+          upload_to_server(
+            endPoint: 'https://yourdomain.com/api/UploadFiles',
+            multipartPayload: {
+              :appName => 'appName',
+              :androidVersionNumber => 'versionName',
+              :androidApk  => 'app-release.apk',
+            },
+            headers: {
+              
+            }
+          )
+          '
+        ]
+      end
+
       def self.return_value
         # If your method provides a return value, you can describe here what it does
       end
