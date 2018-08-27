@@ -49,7 +49,8 @@ module Fastlane
           method: :post,
           url: params[:endPoint],
           payload: multipart_payload,
-          headers: params[:headers]
+          headers: params[:headers],
+          log: Logger.new(STDOUT)
         )
 
         response = request.execute
