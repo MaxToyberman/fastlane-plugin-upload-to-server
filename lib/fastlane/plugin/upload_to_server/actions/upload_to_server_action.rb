@@ -11,19 +11,34 @@ module Fastlane
         params[:endPoint] = config[:endPoint]
         params[:apk] = config[:apk]
         params[:ipa] = config[:ipa]
+        params[:file] = config[:file]
+
         params[:multipartPayload] = config[:multipartPayload]
         params[:headers] = config[:headers]
 
         apk_file = params[:apk]
         ipa_file = params[:ipa]
+        custom_file = params[:file]
+        
         end_point = params[:endPoint]
 
         UI.user_error!("No endPoint given, pass using endPoint: 'endpoint'") if end_point.to_s.length == 0 && end_point.to_s.length == 0
-        UI.user_error!("No IPA or APK file path given, pass using `ipa: 'ipa path'` or `apk: 'apk path'`") if ipa_file.to_s.length == 0 && apk_file.to_s.length == 0
+        UI.user_error!("No IPA or APK or a file path given, pass using `ipa: 'ipa path'` or `apk: 'apk path' or file:`") if ipa_file.to_s.length == 0 && apk_file.to_s.length == 0 && custom_file.to_s.length == 0
         UI.user_error!("Please only give IPA path or APK path (not both)") if ipa_file.to_s.length > 0 && apk_file.to_s.length > 0
 
         upload_apk(params, apk_file) if apk_file.to_s.length > 0
         upload_ipa(params, ipa_file) if ipa_file.to_s.length > 0
+        upload_custom_file(params, custom_file) if custom_file.to_s.length > 0
+
+      end
+      
+      def self.upload_custom_file(params, custom_file)
+        multipart_payload = params[:multipartPayload]
+
+        multipart_payload[:multipart] = true
+        multipart_payload[:file] = File.new(params[:file], 'rb')
+
+        upload_file(params, multipart_payload)
       end
 
       def self.upload_apk(params, apk_file)
