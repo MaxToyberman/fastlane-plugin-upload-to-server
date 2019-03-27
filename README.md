@@ -12,7 +12,7 @@ fastlane add_plugin upload_to_server
 
 ## About upload_to_server
 
-Upload IPA and APK to your own server,and other multipart data parameters.
+Upload IPA and APK or a File to your own server,and other multipart data parameters.
 
 **Note to author:** Add a more detailed description about this plugin here. If your plugin contains multiple actions, make sure to mention them here.
 
@@ -39,6 +39,7 @@ upload_to_server(
     },
     ipa: 'path to your apk',  #(Optional - will be taken from the gym step)
     apk: 'path to your ipa', #(Optional - will be taken from the gradle step) 
+    file: 'path to your custom file'
 )
 
 example of uploading an apk to a private server:
