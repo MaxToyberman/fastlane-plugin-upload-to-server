@@ -26,37 +26,24 @@ module Fastlane
         UI.user_error!("No IPA or APK or a file path given, pass using `ipa: 'ipa path'` or `apk: 'apk path' or file:`") if ipa_file.to_s.length == 0 && apk_file.to_s.length == 0 && custom_file.to_s.length == 0
         UI.user_error!("Please only give IPA path or APK path (not both)") if ipa_file.to_s.length > 0 && apk_file.to_s.length > 0
 
-        upload_apk(params, apk_file) if apk_file.to_s.length > 0
-        upload_ipa(params, ipa_file) if ipa_file.to_s.length > 0
+        upload_custom_file(params, apk_file) if apk_file.to_s.length > 0
+        upload_custom_file(params, ipa_file) if ipa_file.to_s.length > 0
         upload_custom_file(params, custom_file) if custom_file.to_s.length > 0
 
       end
       
       def self.upload_custom_file(params, custom_file)
         multipart_payload = params[:multipartPayload]
-
         multipart_payload[:multipart] = true
-        multipart_payload[:file] = File.new(params[:file], 'rb')
+        if multipart_payload[:fileFormFieldName]
+          key = multipart_payload[:fileFormFieldName]
+          multipart_payload["#{key}"] = File.new(custom_file, 'rb')
+        else
+          multipart_payload[:file] = File.new(custom_file, 'rb')
+        end
 
-        upload_file(params, multipart_payload)
-      end
-
-      def self.upload_apk(params, apk_file)
-        multipart_payload = params[:multipartPayload]
-
-        multipart_payload[:multipart] = true
-        multipart_payload[:file] = File.new(params[:apk], 'rb')
-
-        upload_file(params, multipart_payload)
-      end
-
-      def self.upload_ipa(params, ipa_file)
-        multipart_payload = params[:multipartPayload]
-
-        multipart_payload[:multipart] = true
-        multipart_payload[:file] = File.new(params[:ipa], 'rb')
-
-        upload_file(params, multipart_payload)
+      UI.message multipart_payload
+      upload_file(params, multipart_payload)
       end
 
       def self.upload_file(params, multipart_payload)
@@ -105,7 +92,7 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :file,
                                   env_name: "",
                                   description: "file to be uploaded to the server",
-                                  optional: true,
+                                  optional: true),
           FastlaneCore::ConfigItem.new(key: :multipartPayload,
                                   env_name: "",
                                   description: "payload for the multipart request ",

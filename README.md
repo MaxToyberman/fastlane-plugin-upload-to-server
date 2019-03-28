@@ -33,6 +33,7 @@ upload_to_server(
         // here goes any multipart data  you want to add 
         :param1 => 'param1data',
         :param2 => 'param2data',
+        :fileFormFieldName => "this is the file field name that you expect on your backend"
     },
     headers: {
         //required headers
