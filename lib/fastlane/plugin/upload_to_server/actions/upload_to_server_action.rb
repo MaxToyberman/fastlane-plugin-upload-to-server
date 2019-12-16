@@ -109,7 +109,7 @@ module Fastlane
                                   description: "file upload request url",
                                   optional: false,
                                   default_value: "",
-                                  type: String)
+                                  type: String),
           FastlaneCore::ConfigItem.new(key: :method,
                                   env_name: "",
                                   description: "method",
