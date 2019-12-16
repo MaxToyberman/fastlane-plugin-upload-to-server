@@ -49,7 +49,7 @@ module Fastlane
 
       def self.upload_file(params, multipart_payload)
         request = RestClient::Request.new(
-          method: params[:method].presence,
+          method: params[:method],
           url: params[:endPoint],
           payload: multipart_payload,
           headers: params[:headers],
@@ -112,7 +112,7 @@ module Fastlane
                                   type: String),
           FastlaneCore::ConfigItem.new(key: :method,
                                   env_name: "",
-                                  description: "method",
+                                  description: "request method",
                                   optional: true,
                                   default_value: :post,
                                   type: Symbol)
