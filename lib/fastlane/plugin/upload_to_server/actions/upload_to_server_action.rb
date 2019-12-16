@@ -115,7 +115,7 @@ module Fastlane
                                   description: "method",
                                   optional: true,
                                   default_value: :post,
-                                  type: String)
+                                  type: Symbol)
 
         ]
       end
