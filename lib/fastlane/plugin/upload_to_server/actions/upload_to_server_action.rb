@@ -12,6 +12,7 @@ module Fastlane
         params[:apk] = config[:apk]
         params[:ipa] = config[:ipa]
         params[:file] = config[:file]
+        params[:method] = config[:method]
 
         params[:multipartPayload] = config[:multipartPayload]
         params[:headers] = config[:headers]
@@ -48,7 +49,7 @@ module Fastlane
 
       def self.upload_file(params, multipart_payload)
         request = RestClient::Request.new(
-          method: :post,
+          method: params[:method],
           url: params[:endPoint],
           payload: multipart_payload,
           headers: params[:headers],
@@ -108,7 +109,13 @@ module Fastlane
                                   description: "file upload request url",
                                   optional: false,
                                   default_value: "",
-                                  type: String)
+                                  type: String),
+          FastlaneCore::ConfigItem.new(key: :method,
+                                  env_name: "",
+                                  description: "request method",
+                                  optional: true,
+                                  default_value: :post,
+                                  type: Symbol)
 
         ]
       end
