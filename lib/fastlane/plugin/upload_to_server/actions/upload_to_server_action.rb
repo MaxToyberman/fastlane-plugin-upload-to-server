@@ -114,7 +114,7 @@ module Fastlane
                                   env_name: "",
                                   description: "method",
                                   optional: true,
-                                  default_value: "post",
+                                  default_value: :post,
                                   type: String)
 
         ]
