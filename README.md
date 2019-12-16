@@ -29,6 +29,7 @@ upload_to_server
 
 upload_to_server(
     endPoint: 'https://yourdomain.com/api/UploadFiles',
+    method: :patch, // optional, default value is :post
     multipartPayload: {
         // here goes any multipart data  you want to add 
         :param1 => 'param1data',
