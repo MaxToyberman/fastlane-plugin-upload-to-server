@@ -40,7 +40,6 @@ module Fastlane
           custom_response = upload_custom_file(params, custom_file)
           response["custom"] = custom_response
         end
-        UI.message(response)
         return response
       end
       
@@ -56,8 +55,6 @@ module Fastlane
 
         UI.message multipart_payload
         response = upload_file(params, multipart_payload)
-        UI.message("uploaded file")
-        UI.message(response)
         return response
       end
 
