@@ -31,15 +31,15 @@ module Fastlane
         response = Hash.new
         if apk_file.to_s.length > 0 
           apk_response = upload_custom_file(params, apk_file)
-          response["apk"] = apk_response
+          response["apk"] = apk_response.to_json
         end
         if ipa_file.to_s.length > 0
           ipa_response = upload_custom_file(params, ipa_file) 
-          response["ipa"] = ipa_response
+          response["ipa"] = ipa_response.to_json
         end
         if custom_file.to_s.length > 0
           custom_response = upload_custom_file(params, custom_file)
-          response["custom"] = custom_response.to_h
+          response["custom"] = custom_response.to_json
         end
         return response.to_json
       end
@@ -56,7 +56,6 @@ module Fastlane
 
         UI.message multipart_payload
         response = upload_file(params, multipart_payload)
-        puts response.class
         return response
       end
 
@@ -72,8 +71,7 @@ module Fastlane
         response = request.execute
         UI.message(response)
         UI.success("Successfully finished uploading the fille") if response.code == 200 || response.code == 201
-        puts response.body.class
-        return response.body.to_json
+        return response.body
       end
 
       def self.description
