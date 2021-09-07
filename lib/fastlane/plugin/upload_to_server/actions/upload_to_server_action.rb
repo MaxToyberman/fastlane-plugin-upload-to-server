@@ -41,7 +41,7 @@ module Fastlane
           custom_response = upload_custom_file(params, custom_file)
           response["custom"] = custom_response
         end
-        return response.to_json
+        return response
       end
       
       def self.upload_custom_file(params, custom_file)
