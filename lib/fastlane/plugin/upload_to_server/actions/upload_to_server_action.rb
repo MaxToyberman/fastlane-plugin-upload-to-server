@@ -31,17 +31,17 @@ module Fastlane
         response = Hash.new
         if apk_file.to_s.length > 0 
           apk_response = upload_custom_file(params, apk_file)
-          response["apk"] = apk_response.to_json
+          response["apk"] = JSON.parse(apk_response)
         end
         if ipa_file.to_s.length > 0
           ipa_response = upload_custom_file(params, ipa_file) 
-          response["ipa"] = ipa_response.to_json
+          response["ipa"] = JSON.parse(ipa_response)
         end
         if custom_file.to_s.length > 0
           custom_response = upload_custom_file(params, custom_file)
-          response["custom"] = custom_response.to_json
+          response["custom"] = JSON.parse(custom_response)
         end
-        return response.to_json
+        return response
       end
       
       def self.upload_custom_file(params, custom_file)
