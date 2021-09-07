@@ -70,7 +70,7 @@ module Fastlane
         response = request.execute
         UI.message(response)
         UI.success("Successfully finished uploading the fille") if response.code == 200 || response.code == 201
-        return response
+        return response.body
       end
 
       def self.description
