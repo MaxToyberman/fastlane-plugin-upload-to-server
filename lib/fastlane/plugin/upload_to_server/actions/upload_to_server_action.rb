@@ -1,5 +1,6 @@
 require 'fastlane/action'
 require 'rest-client'
+require 'json'
 require_relative '../helper/upload_to_server_helper'
 
 module Fastlane
@@ -40,7 +41,7 @@ module Fastlane
           custom_response = upload_custom_file(params, custom_file)
           response["custom"] = custom_response
         end
-        return response
+        return response.to_json
       end
       
       def self.upload_custom_file(params, custom_file)
