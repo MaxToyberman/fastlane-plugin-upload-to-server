@@ -39,9 +39,9 @@ module Fastlane
         end
         if custom_file.to_s.length > 0
           custom_response = upload_custom_file(params, custom_file)
-          response["custom"] = custom_response
+          response["custom"] = custom_response.to_h
         end
-        return response
+        return response.to_json
       end
       
       def self.upload_custom_file(params, custom_file)
@@ -56,6 +56,7 @@ module Fastlane
 
         UI.message multipart_payload
         response = upload_file(params, multipart_payload)
+        puts response.class
         return response
       end
 
@@ -71,6 +72,7 @@ module Fastlane
         response = request.execute
         UI.message(response)
         UI.success("Successfully finished uploading the fille") if response.code == 200 || response.code == 201
+        puts response.body.class
         return response.body.to_json
       end
 
