@@ -39,6 +39,7 @@ upload_to_server(
     headers: {
         //required headers
     },
+    verifySsl: 'false if you want to disable ssl verification' #(Optional - default is true)'
     ipa: 'path to your apk',  #(Optional - will be taken from the gym step)
     apk: 'path to your ipa', #(Optional - will be taken from the gradle step) 
     file: 'path to your custom file'
