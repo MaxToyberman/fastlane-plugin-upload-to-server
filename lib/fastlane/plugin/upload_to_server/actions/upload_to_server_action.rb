@@ -17,6 +17,8 @@ module Fastlane
         params[:multipartPayload] = config[:multipartPayload]
         params[:headers] = config[:headers]
 
+        params[:verifySsl] = config[:verifySsl]
+
         apk_file = params[:apk]
         ipa_file = params[:ipa]
         custom_file = params[:file]
@@ -53,6 +55,7 @@ module Fastlane
           url: params[:endPoint],
           payload: multipart_payload,
           headers: params[:headers],
+          verify_ssl: params[:verifySsl],
           log: Logger.new(STDOUT)
         )
 
@@ -80,6 +83,12 @@ module Fastlane
 
       def self.available_options
         [
+          FastlaneCore::ConfigItem.new(key: :verifySsl,
+                                  env_name: "",
+                                  description: "enable or disable ssl verification",
+                                  optional: true,
+                                  default_value: true,
+                                  type: Boolean),
           FastlaneCore::ConfigItem.new(key: :apk,
                                   env_name: "",
                                   description: ".apk file for the build",
